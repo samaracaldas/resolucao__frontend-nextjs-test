@@ -17,5 +17,23 @@ import { IUser, IUserCreate } from '@/types/user.d';
 const users: IUser[] = [];
 
 export default (req: NextApiRequest, res: NextApiResponse) => {
-	return res.status(400).json(undefined);
+	if (req.method !== 'POST') {
+		return res.status(405).json({ message: 'Método não permitido' });
+	  }
+	
+	// Obtém os dados do usuário do body da requisição
+	const userData: IUserCreate = req.body;
+
+	// Cria um novo objeto de usuário com um ID único
+	const newUser: IUser = {
+	  id: users.length + 1,
+	  name: userData.name,
+	  email: userData.email
+	};
+  
+	// Adiciona o novo usuário à lista 
+	users.push(newUser);
+  
+	// Retorna uma resposta com status 201 (Created) e o novo usuário
+	return res.status(201).json(newUser);
 };

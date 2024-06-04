@@ -17,7 +17,7 @@ import { IUser } from '@/types/user.d';
 export default (req: NextApiRequest, res: NextApiResponse) => {
 	 if (req.method !== 'GET') {
     // Se não for GET, retorna um erro 405 
-    return res.status(405).json({ message: 'Method not allowed' });
+    return res.status(405).json({ message: 'Método não permitido' });
   }
 
   // Define a lista de usuários como um array de objetos IUser
