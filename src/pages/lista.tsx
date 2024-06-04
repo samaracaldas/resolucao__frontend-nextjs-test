@@ -35,10 +35,13 @@ export default function Lista() {
 		<div className={styles.container}>
 			<div className={styles.content}>
 				<h2>Lista de usuários</h2>
-
 				<div data-list-container>
-					{/* Exemplo */}
-					<div data-list-item>ID 323 - Usuário 323 (user-323@mail.com)</div>
+					{/* renderizando a lista de usuários no componente */}
+					{users.map((user) => (
+						<div data-list-item key={user.id}>
+						ID {user.id} - {user.name} ({user.email})
+						</div>
+					))}
 				</div>
 			</div>
 		</div>

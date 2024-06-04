@@ -15,7 +15,35 @@ import { NextApiRequest, NextApiResponse } from 'next/types';
 import { IUser } from '@/types/user.d';
 
 export default (req: NextApiRequest, res: NextApiResponse) => {
-	const users: Array<unknown> = [];
+	 if (req.method !== 'GET') {
+    // Se não for GET, retorna um erro 405 
+    return res.status(405).json({ message: 'Method not allowed' });
+  }
 
-	return res.status(500).json(users);
+  // Define a lista de usuários como um array de objetos IUser
+  const users: IUser[] = [
+    {
+      id: 1,
+      name: 'Samara Caldas',
+      email: 'samara.caldas@example.com'
+    },
+    {
+      id: 2,
+      name: 'Alaska Young',
+      email: 'alaska.young@example.com'
+    },
+    {
+      id: 3,
+      name: 'Dorian Havilliard',
+      email: 'dorian.havilliard@example.com'
+    },
+    {
+      id: 4,
+      name: 'Daisy Jones',
+      email: 'daisy.jones@example.com'
+    }
+  ];
+
+  // Retorna uma resposta com status 200 e a lista de usuários
+  return res.status(200).json(users);
 };
