@@ -7,48 +7,73 @@
  * - Disparar as mensagens a partir dos botões abaixo
  */
 
+import React, { createContext, useState, useContext, useEffect } from 'react';
 import styles from '@/styles/context-api.module.css';
 import { IToastMessage } from '@/types/toast-message';
 import { ToastMessage } from '@/components/ToastMessage';
 
+
+// Definição do tipo para o contexto de Toast
+type ToastContextType = {
+  addToast: (message: IToastMessage) => void;
+};
+
+// Contexto com o tipo definido
+const ToastContext = createContext<ToastContextType>({} as ToastContextType);
+
 export default function ContextApi() {
-	const messages: Array<IToastMessage> = [
-		{
-			id: '1',
-			message: 'Mensagem de sucesso',
-			type: 'success',
-		},
-		{
-			id: '2',
-			message: 'Mensagem de erro',
-			type: 'error',
-		},
-	];
+  // State para armazenar as mensagens de toast
+  const [messages, setMessages] = useState<Array<IToastMessage>>([]);
 
-	function handleSuccessButtonClick() {
-		alert('Method: handleSuccessButtonClick not implemented');
-	}
+  // Função para adicionar uma nova mensagem de toast
+  const addToast = (message: IToastMessage) => {
+    setMessages((prevMessages) => [...prevMessages, message]);
+  };
 
-	function handleErrorButtonClick() {
-		alert('Method: handleErrorButtonClick not implemented');
-	}
+  // Remove a mensagem mais antiga após 3 segundos
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setMessages((prevMessages) => prevMessages.slice(1));
+    }, 3000);
 
-	return (
-		<>
-			<div className={styles.container}>
-				<button type="button" onClick={handleSuccessButtonClick}>
-					Disparar mensagem de sucesso
-				</button>
-				<button type="button" onClick={handleErrorButtonClick}>
-					Disparar mensagem de erro
-				</button>
-			</div>
+    return () => clearTimeout(timer);
+  }, [messages]);
 
-			<div className={styles['toast-container']}>
-				{messages.map((message) => (
-					<ToastMessage key={message.id} content={message} />
-				))}
-			</div>
-		</>
-	);
+
+  function handleSuccessButtonClick() {
+    addToast({
+      id: String(new Date().getTime()),
+      message: 'Mensagem de sucesso',
+      type: 'success',
+    });
+  }
+
+  function handleErrorButtonClick() {
+    addToast({
+      id: String(new Date().getTime()),
+      message: 'Mensagem de erro',
+      type: 'error',
+    });
+  }
+
+  return (
+    <>
+      <ToastContext.Provider value={{ addToast }}>
+        <div className={styles.container}>
+          <button type="button" onClick={handleSuccessButtonClick}>
+            Disparar mensagem de sucesso
+          </button>
+          <button type="button" onClick={handleErrorButtonClick}>
+            Disparar mensagem de erro
+          </button>
+        </div>
+
+        <div className={styles['toast-container']}>
+          {messages.map((message) => (
+            <ToastMessage key={message.id} content={message} />
+          ))}
+        </div>
+      </ToastContext.Provider>
+    </>
+  );
 }
