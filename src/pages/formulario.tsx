@@ -18,8 +18,10 @@ type FormValues = {
   };
 
   export default function Form() {
+	// Usando react-hook-form para gerenciar o estado do formulário e as validações
 	const { register, handleSubmit, formState: { errors } } = useForm<FormValues>();
   
+	// Função para enviar os dados do formulário para a API
 	const onSubmit = async (data: FormValues) => {
 	  try {
 		const response = await fetch('/api/users/create', {
@@ -34,9 +36,11 @@ type FormValues = {
 		  throw new Error('Falha ao enviar formulário.');
 		}
   
+		// Exibe uma mensagem de sucesso se o envio for bem-sucedido
 		const result = await response.json();
 		console.log('Formulário enviado com sucesso!', result);
 	  } catch (error) {
+		// Exibe um erro se o envio falhar
 		console.error('Erro ao enviar formulário.', error);
 	  }
 	};
