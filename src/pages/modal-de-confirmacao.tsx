@@ -12,12 +12,12 @@ import { useState } from 'react';
 import Head from 'next/head';
 
 import styles from '@/styles/modal.module.css';
-import { Modal } from '@/components/Modal';
-import { ConfirmationModal } from '@/components/ConfirmationModal';
+import { ConfirmationModal } from '@/components/ConfirmationModal'; // Importação do componente ConfirmationModal
 
 export default function Home() {
 	const [modalIsOpen, setModalIsOpen] = useState(false);
 
+	// Responsável por fechar o modal de confirmação e exibir um alerta confirmando a ação.
 	function handleModalConfirm() {
 		setModalIsOpen(false);
 		alert('confirmado');
@@ -33,7 +33,7 @@ export default function Home() {
 					Abrir modal de confirmação
 				</button>
 			</main>
-			{/* Renderização do modal de confirmação */}
+			{/* Renderização do componente  de confirmação */}
 			<ConfirmationModal
 				isOpen={modalIsOpen}
 				onClose={() => setModalIsOpen(false)}

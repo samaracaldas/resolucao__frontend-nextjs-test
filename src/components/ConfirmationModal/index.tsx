@@ -1,8 +1,8 @@
 // Criação do component para o modal de confirmação
-
 import React from 'react'
 import styles from './style.module.css';
 
+// Propriedades que o componente `ConfirmationModal` receberá
 type ConfirmationModalProps = {
     isOpen: boolean;
     onClose: () => void;
@@ -12,10 +12,12 @@ type ConfirmationModalProps = {
 
   export const ConfirmationModal: React.FC<ConfirmationModalProps> = ({isOpen, onClose, content, ...props }) => {
 
+    // Função para lidar com o clique no botão de confirmação
     function handleConfirmClick(e: React.MouseEvent) {
-		props.onConfirm?.();
-	}
+      props.onConfirm?.();
+    }
     
+    // Retorna `null` se o modal não estiver aberto
     if (!isOpen) return null; 
   
     return (
