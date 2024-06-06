@@ -17,6 +17,7 @@ import { IUser, IUserCreate } from '@/types/user.d';
 const users: IUser[] = [];
 
 export default (req: NextApiRequest, res: NextApiResponse) => {
+	// Verifica se o método HTTP utilizado é POST
 	if (req.method !== 'POST') {
 		return res.status(405).json({ message: 'Método não permitido' });
 	  }
