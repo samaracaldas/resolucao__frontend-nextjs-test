@@ -18,7 +18,7 @@ type ModalProps = {
 
 	- Ao clicar no wrapper do modal, o modal deve ser fechado, porém esta ação deve ser ignorada caso o usuário clique em qualquer elemento dentro do modal
 
-	Resolução: O evento de clique (onClick) no wrapper <div data-modal-wrapper> está configurado para fechar o modal quando um clique ocorre dentro do wrapper.
+	O evento de clique no wrapper está configurado para fechar o modal quando um clique ocorre dentro do wrapper.
 	Isso inclui cliques nos elementos dentro do modal. Portanto, o modal é fechado sempre que o usuário clica em qualquer lugar dentro do modal.
 
 	A solução que eu encontrei foi adicionar uma função que impedirá que o evento de clique dentro do contêiner do modal se propague para o wrapper.
