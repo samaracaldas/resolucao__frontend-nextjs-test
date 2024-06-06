@@ -18,11 +18,11 @@ type ToastContextType = {
   addToast: (message: IToastMessage) => void;
 };
 
-// Contexto com o tipo definido
+// criação do contexto com o tipo definido
 const ToastContext = createContext<ToastContextType>({} as ToastContextType);
 
 export default function ContextApi() {
-  // State para armazenar as mensagens de toast
+  // state para armazenar as mensagens de toast
   const [messages, setMessages] = useState<Array<IToastMessage>>([]);
 
   // Função para adicionar uma nova mensagem de toast
@@ -40,6 +40,7 @@ export default function ContextApi() {
   }, [messages]);
 
 
+  // Adiciona mensagens de toast ao estado do componente.
   function handleSuccessButtonClick() {
     addToast({
       id: String(new Date().getTime()),
